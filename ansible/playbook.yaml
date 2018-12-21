@@ -30,6 +30,27 @@
       - restart php7.3-fpm
       - restart nginx
 
+  - name: Install composer
+    shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    args:
+      creates: /usr/local/bin/composer
+
+  - name: create /var/www/ directory
+    file: dest=/var/www/ state=directory owner=www-data group=www-data mode=0700
+
+  - name: Clone git repository
+    git: >
+      dest=/var/www/test-ansible
+      repo=https://github.com/jaumecapdevila/test-ansible.git
+      update=no
+    sudo: yes
+    sudo_user: www-data
+
+  - name: Install project dependencies
+    composer: command=install working_dir=/var/www/test-ansible optimize_autoloader=no
+    sudo: yes
+    sudo_user: www-data
+
   handlers:
     - name: restart php7.3-fpm
       service: name=php7.3-fpm state=restarted
