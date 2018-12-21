@@ -31,7 +31,7 @@
       - restart nginx
 
   - name: Install composer
-    shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer warn=False
     args:
       creates: /usr/local/bin/composer
 
@@ -50,6 +50,12 @@
     composer: command=install working_dir=/var/www/test-ansible optimize_autoloader=no
     become: yes
     become_user: www-data
+
+  - name: Configure nginx
+    template: src=nginx.conf dest=/etc/nginx/sites-available/default
+    notify:
+      - restart php7.3-fpm
+      - restart nginx
 
   handlers:
     - name: restart php7.3-fpm
