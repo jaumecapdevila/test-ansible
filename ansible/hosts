@@ -1,0 +1,2 @@
+[webservers]
+34.244.22.45 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/ansible.pem

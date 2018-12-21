@@ -1,0 +1,25 @@
+---
+- hosts: webservers
+  become: yes
+  become_method: sudo
+
+  tasks:
+  - name: Add PHP 7 PPA repository
+    apt_repository:
+      repo: 'ppa:ondrej/php'
+
+  - name: install packages
+    apt:
+      name: [
+        'git',
+        'mcrypt',
+        'nginx',
+        'php7.3-cli',
+        'php7.3-curl',
+        'php7.3-fpm',
+        'php7.3-intl',
+        'php7.3-json',
+        'sqlite3'
+      ]
+      state: latest
+      update_cache: yes
