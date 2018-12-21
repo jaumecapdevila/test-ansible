@@ -1,0 +1,12 @@
+{
+    "name": "jaumecapdevila/test-deployment",
+    "authors": [
+        {
+            "name": "jaumecapdevila",
+            "email": "contact@jaumecapdevila.net"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.0"
+    }
+}
