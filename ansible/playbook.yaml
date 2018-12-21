@@ -43,13 +43,13 @@
       dest=/var/www/test-ansible
       repo=https://github.com/jaumecapdevila/test-ansible.git
       update=no
-    sudo: yes
-    sudo_user: www-data
+    become: yes
+    become_user: www-data
 
   - name: Install project dependencies
     composer: command=install working_dir=/var/www/test-ansible optimize_autoloader=no
-    sudo: yes
-    sudo_user: www-data
+    become: yes
+    become_user: www-data
 
   handlers:
     - name: restart php7.3-fpm
